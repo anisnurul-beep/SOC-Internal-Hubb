@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weekly Digest - Week 37</title>
+
+  <style>
+    @font-face {
+      font-family: 'ArchieroBold';
+      src: url('Archiero Bold.ttf') format('truetype');
+    }
+    @font-face {
+      font-family: 'Deltha';
+      src: url('Deltha.otf') format('opentype');
+    }
+
+    body {
+      font-family: 'ArchieroBold', sans-serif;
+      margin: 0;
+      padding: 30px 15px;
+      background: url('bg.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      font-family: 'Deltha', sans-serif;
+      font-size: 2.5em;
+      color: #fff;
+      text-shadow: 0 0 10px rgba(255,0,0,0.8);
+      background: rgba(0,0,0,0.55);
+      padding: 15px 30px;
+      border-radius: 10px;
+      margin-bottom: 25px;
+      text-align: center;
+    }
+
+    .week-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 100%;
+      max-width: 1100px;
+    }
+
+    .week {
+      background: rgba(0,0,0,0.72);
+      border: 1.5px solid #ff4d4d;
+      border-radius: 12px;
+      padding: 18px 22px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.55);
+      transition: transform 0.3s, box-shadow 0.3s;
+      position: relative;
+    }
+
+    .week:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 22px rgba(0,0,0,0.7), 0 0 12px rgba(255,0,0,0.4);
+    }
+
+    .badge-box {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background: rgba(255,0,0,0.9);
+      color: #fff;
+      font-size: 0.85em;
+      font-weight: bold;
+      padding: 6px 12px;
+      border-radius: 8px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.6);
+    }
+    .badge-medium { background: rgba(255,165,0,0.9); }
+    .badge-low { background: rgba(0,200,0,0.9); }
+
+    .week h3 {
+      font-size: 1.3em;
+      margin-bottom: 10px;
+      color: #ff4d4d;
+      text-shadow: 0 0 4px rgba(0,0,0,0.5);
+    }
+
+    .threat-content {
+      display: flex;
+      gap: 20px;
+      align-items: center; /* gambar align tengah box */
+    }
+
+    .week:nth-child(even) .threat-content {
+      flex-direction: row-reverse;
+    }
+
+    .content-section {
+      flex: 3;
+      font-size: 0.9em;
+    }
+
+    .content-section h4 {
+      margin: 10px 0 6px;
+      color: #fff;
+    }
+
+    .content-section p,
+    .content-section ul li {
+      color: #eee;
+      line-height: 1.5;
+    }
+
+    .content-section ul {
+      margin-left: 18px;
+    }
+
+    .reference-link {
+      color: #ff8080;
+      text-decoration: none;
+    }
+    .reference-link:hover {
+      text-decoration: underline;
+    }
+
+    .threat-image {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .threat-image img {
+      width: 100%;
+      max-width: 230px;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 10px;
+      border: 1.5px solid #ff4d4d;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.55);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .threat-image img:hover {
+      transform: scale(1.08);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.65), 0 0 8px rgba(255,0,0,0.4);
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 25px;
+    }
+
+    .back-btn {
+      padding: 12px 24px;
+      background-color: #000;
+      color: #fff;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .back-btn:hover {
+      background: linear-gradient(90deg, #ff0000, #ff4d4d);
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Weekly Digest - Week 1 (Sept)</h1>
+
+  <div class="week-container">
+
+    <!-- Threat 1 -->
+    <div class="week">
+      <div class="badge-box">High Risk</div>
+      <h3>1. Fake AnyDesk Installer / MetaStealer</h3>
+      <div class="threat-content">
+        <div class="content-section">
+          <h4>Threat Summary:</h4>
+          <p>Cybercriminals are spreading a <b>fake AnyDesk installer</b> that secretly delivers <b>MetaStealer malware</b>. Once installed, it silently collects saved passwords, browser data, and even cryptocurrency wallets.</p>
+          <h4>Impact:</h4>
+          <ul>
+            <li>Credential and data theft</li>
+            <li>Possible remote system takeover</li>
+            <li>Increased chance of ransomware attack</li>
+          </ul>
+          <h4>Mitigation:</h4>
+          <ul>
+            <li>Download software only from official sources</li>
+            <li>Train staff to spot fake installers</li>
+            <li>Enable strict endpoint protection</li>
+          </ul>
+          <a class="reference-link" href="https://www.hackread.com" target="_blank">Source: Hackread</a>
+        </div>
+        <div class="threat-image">
+          <img src="anydesk2.png" alt="Fake AnyDesk Installer">
+        </div>
+      </div>
+    </div>
+
+    <!-- Threat 2 -->
+    <div class="week">
+      <div class="badge-box badge-medium">Medium Risk</div>
+      <h3>2. Grok AI Malicious Links</h3>
+      <div class="threat-content">
+        <div class="content-section">
+          <h4>Threat Summary:</h4>
+          <p>Attackers exploit <b>AI-powered chatbots</b> like Grok AI to push malicious URLs in replies and ads. Many users click without realizing these links redirect to phishing sites or malware downloads.</p>
+          <h4>Impact:</h4>
+          <ul>
+            <li>Phishing campaigns at scale</li>
+            <li>Drive-by malware infections</li>
+            <li>Trust in AI platforms exploited</li>
+          </ul>
+          <h4>Mitigation:</h4>
+          <ul>
+            <li>Educate users on AI-driven scams</li>
+            <li>Enable strong URL filtering</li>
+            <li>Block suspicious domains proactively</li>
+          </ul>
+          <a class="reference-link" href="https://www.bleepingcomputer.com" target="_blank">Source: BleepingComputer</a>
+        </div>
+        <div class="threat-image">
+          <img src="grok.png" alt="Grok AI Malicious Links">
+        </div>
+      </div>
+    </div>
+
+    <!-- Threat 3 -->
+    <div class="week">
+      <div class="badge-box">High Risk</div>
+      <h3>3. DDoS Attacks as Political Influence</h3>
+      <div class="threat-content">
+        <div class="content-section">
+          <h4>Threat Summary:</h4>
+          <p>Nation-state groups are increasingly using <b>DDoS attacks</b> to disrupt critical services during elections or political unrest. These attacks aim to silence platforms and manipulate public opinion.</p>
+          <h4>Impact:</h4>
+          <ul>
+            <li>Service outages and downtime</li>
+            <li>Financial and reputational losses</li>
+            <li>Destabilization of key industries</li>
+          </ul>
+          <h4>Mitigation:</h4>
+          <ul>
+            <li>Adopt advanced DDoS protection</li>
+            <li>Implement traffic filtering & rate limiting</li>
+            <li>Run stress tests on critical systems</li>
+          </ul>
+          <a class="reference-link" href="https://www.helpnetsecurity.com" target="_blank">Source: Help Net Security</a>
+        </div>
+        <div class="threat-image">
+          <img src="ddos.jpg" alt="DDoS Attacks">
+        </div>
+      </div>
+    </div>
+
+    <!-- Threat 4 -->
+    <div class="week">
+      <div class="badge-box">High Risk</div>
+      <h3>4. TP-Link Router Vulnerabilities</h3>
+      <div class="threat-content">
+        <div class="content-section">
+          <h4>Threat Summary:</h4>
+          <p>Researchers uncovered <b>two critical flaws</b> in TP-Link routers that allow remote attackers to take full control. Hackers are actively exploiting unpatched devices in the wild.</p>
+          <h4>Impact:</h4>
+          <ul>
+            <li>Router hijacking and data sniffing</li>
+            <li>Entry point into corporate networks</li>
+          </ul>
+          <h4>Mitigation:</h4>
+          <ul>
+            <li>Update router firmware immediately</li>
+            <li>Segment network for IoT devices</li>
+            <li>Restrict remote admin access</li>
+          </ul>
+          <a class="reference-link" href="https://www.thehackernews.com" target="_blank">Source: The Hacker News</a>
+        </div>
+        <div class="threat-image">
+          <img src="tp.png" alt="TP-Link Vulnerabilities">
+        </div>
+      </div>
+    </div>
+
+    <!-- Threat 5 -->
+    <div class="week">
+      <div class="badge-box badge-low">Low Risk</div>
+      <h3>5. Android Security Rollup</h3>
+      <div class="threat-content">
+        <div class="content-section">
+          <h4>Threat Summary:</h4>
+          <p>Google’s <b>September 2025 security patch</b> fixes over 120 flaws, including two critical zero-day exploits. Attackers could use these to gain <b>root access</b> to unpatched Android devices.</p>
+          <h4>Impact:</h4>
+          <ul>
+            <li>Mobile device compromise</li>
+            <li>Data theft and spyware installation</li>
+          </ul>
+          <h4>Mitigation:</h4>
+          <ul>
+            <li>Patch Android devices immediately</li>
+            <li>Enforce MDM update policies</li>
+            <li>Audit app permissions regularly</li>
+          </ul>
+          <a class="reference-link" href="https://www.cyber.gc.ca" target="_blank">Source: Canadian Cyber Centre</a>
+        </div>
+        <div class="threat-image">
+          <img src="android.jpg" alt="Android Security Update">
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="button-container">
+    <button class="back-btn" onclick="window.location.href='weekly_digest.html'">⬅ Back</button>
+  </div>
+
+</body>
+</html>

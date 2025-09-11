@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weekly Digest</title>
+
+  <!-- Custom Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    @font-face {
+      font-family: 'Deltha';
+      src: url('Deltha.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: url('bg.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: all 0.3s;
+    }
+
+    header {
+      padding: 15px;
+      background: rgba(0,0,0,0.75);
+      border-bottom: 1.5px solid #1a3a80;
+    }
+
+    h1 {
+      font-family: 'Deltha', sans-serif;
+      font-size: 3rem;
+      text-align: center;
+      color: #fff;
+      text-shadow: 0 0 10px #1a3a80;
+      margin-bottom: 30px;
+      background: rgba(0,0,0,0.55);
+      padding: 15px 30px;
+      border-radius: 12px;
+      letter-spacing: 2px;
+      animation: fadeSlideIn 1s ease forwards;
+    }
+
+    /* Month Header */
+    .month {
+      font-family: 'Deltha', sans-serif;
+      font-size: 2rem;
+      padding: 12px;
+      width: 100%;
+      text-align: center;
+      margin-bottom: 12px;
+      border-radius: 8px;
+      background: rgba(0,0,0,0.55);
+      color: #fff;
+      text-shadow: 0 0 5px #1a3a80;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeSlideIn 1s ease forwards;
+      animation-delay: 0.3s;
+    }
+
+    .week-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-bottom: 25px;
+      width: 100%;
+      max-width: 1000px;
+    }
+
+    .week {
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(10px);
+      border-radius: 10px;
+      padding: 12px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeSlideIn 0.8s ease forwards;
+    }
+
+    .week:nth-child(1) { animation-delay: 0.5s; }
+    .week:nth-child(2) { animation-delay: 0.6s; }
+    .week:nth-child(3) { animation-delay: 0.7s; }
+    .week:nth-child(4) { animation-delay: 0.8s; }
+    .week:nth-child(5) { animation-delay: 0.9s; }
+
+    .week-box {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 10px;
+      width: 100%;
+      box-sizing: border-box;
+      transition: background 0.3s, transform 0.3s;
+    }
+
+    /* 3D Navy Button */
+    .week a {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .week-clickable {
+      background: linear-gradient(145deg, #0a1a40, #000814);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      font-family: 'ArchieroBold', sans-serif;
+      box-shadow:
+        0 6px 0 #001f54,
+        0 6px 12px rgba(0,0,0,0.6);
+    }
+
+    .week-clickable:hover {
+      background: linear-gradient(145deg, #1a3a80, #0d1b2a);
+      transform: translateY(-6px) scale(1.05);
+      box-shadow:
+        0 8px 0 #001133,
+        0 12px 18px rgba(0,0,80,0.5);
+    }
+
+    .week-clickable:active {
+      transform: translateY(3px) scale(0.95);
+      box-shadow:
+        0 3px 0 #001133,
+        0 6px 12px rgba(0,0,0,0.4);
+    }
+
+    .week-unfilled {
+      background: rgba(255,255,255,0.05);
+      color: #888;
+      border: 2px solid #444;
+      cursor: not-allowed;
+    }
+
+    .week-info, .week-date {
+      margin-top: 6px;
+      font-size: 12px;
+      color: #ccc;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      animation: fadeSlideIn 1s ease forwards;
+      animation-delay: 1s;
+    }
+
+    /* Back Button Navy */
+    .back-btn {
+      padding: 14px 28px;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 18px;
+      cursor: pointer;
+      font-family: 'ArchieroBold', sans-serif;
+      background: linear-gradient(145deg, #0a1a40, #000814);
+      color: #fff;
+      transition: all 0.3s ease;
+      transform-style: preserve-3d;
+      box-shadow:
+        0 8px 0 #001f54,
+        0 6px 12px rgba(0,0,0,0.6);
+    }
+
+    .back-btn:hover {
+      background: linear-gradient(145deg, #1a3a80, #0d1b2a);
+      transform: translateY(-6px) scale(1.05);
+      box-shadow:
+        0 12px 0 #001133,
+        0 12px 22px rgba(0,0,80,0.5);
+    }
+
+    .back-btn:active {
+      transform: translateY(3px) scale(0.95);
+      box-shadow:
+        0 3px 0 #001133,
+        0 6px 12px rgba(0,0,0,0.4);
+    }
+
+    /* Animations */
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>WEEKLY DIGEST ENTRY</h1>
+
+  <!-- SEPTEMBER -->
+  <div class="month">SEPTEMBER</div>
+  <div class="week-container">
+    <div class="week">
+      <a href="week37.html"><div class="week-box week-clickable">Week 1</div></a>
+      <div class="week-info">MSP SOC - Weekly Threat Alerts - 5/9/2025</div>
+    </div>
+    <div class="week">
+      <div class="week-box week-unfilled">Week 2</div>
+      <div class="week-date">MSP SOC - Weekly Threat Alerts - 12/9/2025</div>
+    </div>
+    <div class="week">
+      <div class="week-box week-unfilled">Week 3</div>
+      <div class="week-date">MSP SOC - Weekly Threat Alerts - 19/9/2025</div>
+    </div>
+    <div class="week">
+      <div class="week-box week-unfilled">Week 4</div>
+      <div class="week-date">MSP SOC - Weekly Threat Alerts - 26/9/2025</div>
+    </div>
+  </div>
+
+  <!-- OCTOBER -->
+  <div class="month">OCTOBER</div>
+  <div class="week-container">
+    <div class="week"><div class="week-box week-unfilled">Week 1</div><div class="week-date">MSP SOC - Weekly Threat Alerts - 3/10/2025</div></div>
+    <div class="week"><div class="week-box week-unfilled">Week 2</div><div class="week-date">MSP SOC - Weekly Threat Alerts - 10/10/2025</div></div>
+    <div class="week"><div class="week-box week-unfilled">Week 3</div><div class="week-date">MSP SOC - Weekly Threat Alerts - 17/10/2025</div></div>
+    <div class="week"><div class="week-box week-unfilled">Week 4</div><div class="week-date">MSP SOC - Weekly Threat Alerts - 24/10/2025</div></div>
+    <div class="week"><div class="week-box week-unfilled">Week 5</div><div class="week-date">MSP SOC - Weekly Threat Alerts - 31/10/2025</div></div>
+  </div>
+
+  <!-- NOVEMBER -->
+  <div class="month">NOVEMBER</div>
+  <div class="week-container">
+    <div class="week"><div class="week-box week-unfilled">Week 1</div><div class="week-date">MSP SOC - Weekly Threat Alerts - 7/11/2025</div></div>
+    <div class="week"><div class="week-box week-unfilled">Week 2</div><div class="week-date">MSP SOC - Weekly Threat Alerts - 14/11/2025</div></div>
+    <div class="week"><div class="week-box week-unfilled">Week 3</div><div class="week-date">MSP SOC - Weekly Threat Alerts - 21/11/2025</div></div>
+    <div class="week"><div class="week-box week-unfilled">Week 4</div><div class="week-date">MSP SOC - Weekly Threat Alerts - 28/11/2025</div></div>
+  </div>
+
+  <!-- DECEMBER -->
+  <div class="month">DECEMBER</div>
+  <div class="week-container">
+    <div class="week"><div class="week-box week-unfilled">Week 1</div><div class="week-date">MSP SOC - Weekly Threat Alerts - 5/12/2025</div></div>
+    <div class="week"><div class="week-box week-unfilled">Week 2</div><div class="week-date">MSP SOC - Weekly Threat Alerts - 12/12/2025</div></div>
+    <div class="week"><div class="week-box week-unfilled">Week 3</div><div class="week-date">MSP SOC - Weekly Threat Alerts - 19/12/2025</div></div>
+    <div class="week"><div class="week-box week-unfilled">Week 4</div><div class="week-date">MSP SOC - Weekly Threat Alerts - 26/12/2025</div></div>
+  </div>
+
+  <div class="button-container">
+    <button class="back-btn" onclick="window.location.href='index.html'">⬅ Back to Homepage</button>
+  </div>
+
+</body>
+</html>
