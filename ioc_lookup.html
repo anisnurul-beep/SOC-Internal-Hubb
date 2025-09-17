@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SOC Internal Hub - IOC Lookup</title>
+  <style>
+    /* Custom Fonts */
+    @font-face {
+      font-family: 'Deltha';
+      src: url('Deltha.otf') format('opentype');
+    }
+    @font-face {
+      font-family: 'ArchieroBold';
+      src: url('Archiero Bold.ttf') format('truetype');
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background: url('wallpaper.png') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+      text-align: center;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100px;
+      background: rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(5px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      box-sizing: border-box;
+      z-index: 1000;
+    }
+
+    .header-left, .header-right {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+    }
+
+    .header-title {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Deltha', sans-serif;
+      font-size: 2.4em;
+      margin: 0;
+      color: #333;
+      text-shadow: 0 0 12px rgba(255, 0, 0, 0.7);
+    }
+
+    .logo {
+      height: 60px;
+      width: auto;
+    }
+
+    /* Hamburger */
+    .hamburger {
+      font-size: 28px;
+      cursor: pointer;
+      background: linear-gradient(145deg, #1a1a1a, #000000);
+      color: #fff;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 12px;
+      font-family: 'ArchieroBold', sans-serif;
+      box-shadow: 0 6px 0 #ff1a1a, 0 6px 12px rgba(0,0,0,0.6);
+      transition: all 0.3s ease;
+    }
+    .hamburger:hover {
+      background: linear-gradient(145deg, #ff1a1a, #ff4d4d);
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: 0 8px 0 #a60000, 0 12px 20px rgba(255,0,0,0.5);
+    }
+
+    /* Side Navigation */
+    .sidenav {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      top: 0;
+      right: 0;
+      background: rgba(0,0,0,0.95);
+      backdrop-filter: blur(6px);
+      overflow-x: hidden;
+      transition: 0.4s;
+      padding-top: 70px;
+      z-index: 1000;
+      box-shadow: -4px 0 12px rgba(0,0,0,0.6);
+    }
+
+    .sidenav a {
+      display: block;
+      margin: 14px 22px;
+      text-decoration: none;
+      font-weight: bold;
+      color: #fff;
+      padding: 14px 22px;
+      border-radius: 12px;
+      font-family: 'ArchieroBold', sans-serif;
+      background: linear-gradient(145deg, #1a1a1a, #000000);
+      box-shadow: 0 6px 0 #ff1a1a, 0 6px 12px rgba(0,0,0,0.6);
+      transition: all 0.3s ease;
+    }
+
+    .sidenav a:hover {
+      background: linear-gradient(145deg, #ff1a1a, #ff4d4d);
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 9px 0 #a60000, 0 12px 20px rgba(255,0,0,0.5);
+    }
+
+    .sidenav .closebtn {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 32px;
+      cursor: pointer;
+      color: #fff;
+    }
+
+    /* Overlay Blur */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(4px);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease;
+      z-index: 900;
+    }
+    .overlay.active { opacity: 1; visibility: visible; }
+
+    /* Main Content */
+    main {
+      margin-top: 120px; /* space for fixed header */
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.65);
+      border-radius: 16px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+      animation: fadeInUp 1s forwards;
+    }
+
+    input {
+      padding: 12px;
+      width: 70%;
+      border-radius: 10px;
+      border: none;
+      font-size: 1em;
+      margin-bottom: 15px;
+    }
+
+    button {
+      padding: 16px 28px;
+      font-size: 1.1em;
+      font-weight: 700;
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      background: linear-gradient(145deg, #1a1a1a, #000000);
+      color: #fff;
+      font-family: 'ArchieroBold', sans-serif;
+      box-shadow: 0 8px 0 #ff1a1a, 0 6px 15px rgba(0,0,0,0.6);
+      transition: all 0.3s ease;
+    }
+    button:hover {
+      background: linear-gradient(145deg, #ff1a1a, #ff4d4d);
+      transform: translateY(-6px) scale(1.05);
+      box-shadow: 0 12px 0 #a60000, 0 12px 22px rgba(255,0,0,0.5);
+    }
+    button:active {
+      transform: translateY(3px) scale(0.95);
+      box-shadow: 0 4px 0 #a60000, 0 6px 12px rgba(0,0,0,0.4);
+    }
+
+    .result {
+      margin-top: 25px;
+      padding: 18px;
+      border-radius: 12px;
+      background: rgba(20, 20, 20, 0.85);
+      text-align: left;
+      display: none;
+    }
+
+    .status-good { color: #00ff99; }
+    .status-bad { color: #ff3333; }
+    .status-suspicious { color: #ffaa00; }
+
+    footer {
+      margin-top: 40px;
+      font-size: 0.9em;
+      color: #aaa;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-left">
+      <img src="LUNAS_logo.png" alt="SOC Logo" class="logo">
+    </div>
+
+    <h1 class="header-title">SOC Internal Hub</h1>
+
+    <div class="header-right">
+      <button class="hamburger" onclick="openNav()">☰</button>
+    </div>
+  </header>
+
+  <!-- Side Navigation -->
+  <div id="sideNav" class="sidenav">
+    <span class="closebtn" onclick="closeNav()">&times;</span>
+    <a href="index.html">Home</a>
+    <a href="weekly_digest.html">Weekly Digest</a>
+    <a href="Phishing_analyzer.html">Phishing Analyzer</a>
+    <a href="ioc_lookup.html">IOC Lookup</a>
+    <a href="report_center.html">Report Center</a>
+  </div>
+
+  <!-- Overlay -->
+  <div id="overlay" class="overlay" onclick="closeNav()"></div>
+
+  <main>
+    <h2>IOC Lookup</h2>
+    <p>Enter an <b>IP</b>, <b>Domain</b>, or <b>File Hash</b> to check its reputation.</p>
+    <input type="text" id="iocInput" placeholder="e.g. 192.168.1.1 or badsite.com or filehash123">
+    <br>
+    <button onclick="lookupIOC()">Check</button>
+
+    <div id="result" class="result"></div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 SOC Internal Hub</p>
+  </footer>
+
+  <script>
+    function openNav() {
+      document.getElementById("sideNav").style.width = "260px";
+      document.getElementById("overlay").classList.add("active");
+    }
+
+    function closeNav() {
+      document.getElementById("sideNav").style.width = "0";
+      document.getElementById("overlay").classList.remove("active");
+    }
+
+    function lookupIOC() {
+      const input = document.getElementById("iocInput").value.trim();
+      const resultBox = document.getElementById("result");
+      resultBox.style.display = "block";
+
+      if (!input) {
+        resultBox.innerHTML = "<p>Please enter a valid IP, Domain, or Hash.</p>";
+        return;
+      }
+
+      if (input.includes("123") || input.includes("mal")) {
+        resultBox.innerHTML = `
+          <h3>Result for: ${input}</h3>
+          <p class="status-bad">❌ Malicious IOC detected!</p>
+          <ul>
+            <li><b>Category:</b> Phishing / Malware</li>
+            <li><b>Source:</b> Mock DB (AbuseIPDB / VirusTotal)</li>
+            <li><b>Country:</b> Russia</li>
+          </ul>
+        `;
+      } else if (input.includes("test") || input.length < 10) {
+        resultBox.innerHTML = `
+          <h3>Result for: ${input}</h3>
+          <p class="status-suspicious">⚠️ Suspicious IOC</p>
+          <ul>
+            <li><b>Category:</b> Unusual domain / Unknown hash</li>
+            <li><b>Source:</b> Mock DB</li>
+            <li><b>Country:</b> Unknown</li>
+          </ul>
+        `;
+      } else {
+        resultBox.innerHTML = `
+          <h3>Result for: ${input}</h3>
+          <p class="status-good">✔ No known malicious activity</p>
+          <ul>
+            <li><b>Category:</b> Clean</li>
+            <li><b>Source:</b> Internal DB</li>
+            <li><b>Country:</b> USA</li>
+          </ul>
+        `;
+      }
+    }
+    
+// Smooth header opacity on scroll
+window.addEventListener('scroll', function() {
+  const header = document.querySelector('header');
+  if (window.scrollY > 50) {
+    header.style.background = 'rgba(255, 255, 255, 0.7)';
+  } else {
+    header.style.background = 'rgba(255, 255, 255, 0.3)';
+  }
+});
+  </script>
+</body>
+</html>
