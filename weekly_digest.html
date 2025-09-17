@@ -12,36 +12,129 @@
     @font-face {
       font-family: 'Deltha';
       src: url('Deltha.otf') format('opentype');
-      font-weight: normal;
-      font-style: normal;
+    }
+    @font-face {
+      font-family: 'ArchieroBold';
+      src: url('Archiero Bold.ttf') format('truetype');
     }
 
     body {
       font-family: 'Roboto', sans-serif;
       margin: 0;
-      padding: 20px;
+      padding: 0;
       background: url('bg.jpg') no-repeat center center fixed;
       background-size: cover;
       color: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
       transition: all 0.3s;
     }
 
     header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       padding: 15px;
       background: rgba(0,0,0,0.75);
       border-bottom: 1.5px solid #1a3a80;
     }
 
-    h1 {
+    header h1 {
+      margin: 0;
+      font-size: 2.2rem;
       font-family: 'Deltha', sans-serif;
-      font-size: 3rem;
-      text-align: center;
       color: #fff;
       text-shadow: 0 0 10px #1a3a80;
-      margin-bottom: 30px;
+    }
+
+    .hamburger {
+      font-size: 1.6em;
+      padding: 12px 20px;
+      cursor: pointer;
+      border: none;
+      border-radius: 14px;
+      background: linear-gradient(145deg, #0a1a40, #000814);
+      color: #fff;
+      font-family: 'ArchieroBold', sans-serif;
+      box-shadow: 0 6px 0 #001f54, 0 6px 12px rgba(0,0,0,0.6);
+      transition: all 0.3s ease;
+    }
+    .hamburger:hover {
+      background: linear-gradient(145deg, #1a3a80, #0d1b2a);
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 9px 0 #001133, 0 12px 20px rgba(0,0,80,0.5);
+    }
+    .hamburger:active {
+      transform: translateY(3px) scale(0.95);
+      box-shadow: 0 3px 0 #001133, 0 6px 10px rgba(0,0,0,0.4);
+    }
+
+    /* Side Navigation */
+    .sidenav {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      top: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.95);
+      overflow-x: hidden;
+      transition: 0.5s;
+      padding-top: 80px;
+      z-index: 1000;
+    }
+    .sidenav a {
+      display: block;
+      margin: 12px auto;
+      text-decoration: none;
+      font-weight: bold;
+      color: #fff;
+      padding: 14px 24px;
+      border-radius: 14px;
+      font-family: 'ArchieroBold', sans-serif;
+      background: linear-gradient(145deg, #0a1a40, #000814);
+      box-shadow: 0 6px 0 #001f54, 0 6px 12px rgba(0,0,0,0.6);
+      transition: all 0.3s ease;
+      width: 70%;
+      text-align: center;
+    }
+    .sidenav a:hover {
+      background: linear-gradient(145deg, #1a3a80, #0d1b2a);
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 9px 0 #001133, 0 12px 20px rgba(0,0,80,0.5);
+    }
+    .sidenav .closebtn {
+      position: absolute;
+      top: 15px;
+      right: 25px;
+      font-size: 40px;
+      text-decoration: none;
+      color: #1a3a80;
+      cursor: pointer;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: rgba(0,0,0,0.5);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease;
+      z-index: 900;
+      backdrop-filter: blur(4px);
+    }
+    .overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .page-title {
+      font-family: 'Deltha', sans-serif;
+      font-size: 2.8rem;
+      text-align: center;
+      margin: 25px auto;
+      color: #fff;
+      text-shadow: 0 0 10px #1a3a80;
       background: rgba(0,0,0,0.55);
       padding: 15px 30px;
       border-radius: 12px;
@@ -49,7 +142,6 @@
       animation: fadeSlideIn 1s ease forwards;
     }
 
-    /* Month Header */
     .month {
       font-family: 'Deltha', sans-serif;
       font-size: 2rem;
@@ -69,11 +161,12 @@
 
     .week-container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 12px;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      width: calc(100% - 40px);
+      padding: 0 20px;
       margin-bottom: 25px;
-      width: 100%;
-      max-width: 1000px;
+      box-sizing: border-box;
     }
 
     .week {
@@ -88,26 +181,14 @@
       animation: fadeSlideIn 0.8s ease forwards;
     }
 
-    .week:nth-child(1) { animation-delay: 0.5s; }
-    .week:nth-child(2) { animation-delay: 0.6s; }
-    .week:nth-child(3) { animation-delay: 0.7s; }
-    .week:nth-child(4) { animation-delay: 0.8s; }
-    .week:nth-child(5) { animation-delay: 0.9s; }
-
     .week-box {
-      display: flex;
-      justify-content: center;
-      align-items: center;
       padding: 12px;
       font-size: 16px;
       font-weight: bold;
       border-radius: 10px;
-      width: 100%;
-      box-sizing: border-box;
       transition: background 0.3s, transform 0.3s;
     }
 
-    /* 3D Navy Button */
     .week a {
       text-decoration: none;
       color: inherit;
@@ -117,27 +198,17 @@
     .week-clickable {
       background: linear-gradient(145deg, #0a1a40, #000814);
       color: #fff;
-      border: none;
-      cursor: pointer;
       font-family: 'ArchieroBold', sans-serif;
-      box-shadow:
-        0 6px 0 #001f54,
-        0 6px 12px rgba(0,0,0,0.6);
+      box-shadow: 0 6px 0 #001f54, 0 6px 12px rgba(0,0,0,0.6);
     }
-
     .week-clickable:hover {
       background: linear-gradient(145deg, #1a3a80, #0d1b2a);
       transform: translateY(-6px) scale(1.05);
-      box-shadow:
-        0 8px 0 #001133,
-        0 12px 18px rgba(0,0,80,0.5);
+      box-shadow: 0 8px 0 #001133, 0 12px 18px rgba(0,0,80,0.5);
     }
-
     .week-clickable:active {
       transform: translateY(3px) scale(0.95);
-      box-shadow:
-        0 3px 0 #001133,
-        0 6px 12px rgba(0,0,0,0.4);
+      box-shadow: 0 3px 0 #001133, 0 6px 12px rgba(0,0,0,0.4);
     }
 
     .week-unfilled {
@@ -156,12 +227,8 @@
     .button-container {
       display: flex;
       justify-content: center;
-      margin-top: 20px;
-      animation: fadeSlideIn 1s ease forwards;
-      animation-delay: 1s;
+      margin: 30px 0;
     }
-
-    /* Back Button Navy */
     .back-btn {
       padding: 14px 28px;
       font-size: 16px;
@@ -173,28 +240,18 @@
       background: linear-gradient(145deg, #0a1a40, #000814);
       color: #fff;
       transition: all 0.3s ease;
-      transform-style: preserve-3d;
-      box-shadow:
-        0 8px 0 #001f54,
-        0 6px 12px rgba(0,0,0,0.6);
+      box-shadow: 0 8px 0 #001f54, 0 6px 12px rgba(0,0,0,0.6);
     }
-
     .back-btn:hover {
       background: linear-gradient(145deg, #1a3a80, #0d1b2a);
       transform: translateY(-6px) scale(1.05);
-      box-shadow:
-        0 12px 0 #001133,
-        0 12px 22px rgba(0,0,80,0.5);
+      box-shadow: 0 12px 0 #001133, 0 12px 22px rgba(0,0,80,0.5);
     }
-
     .back-btn:active {
       transform: translateY(3px) scale(0.95);
-      box-shadow:
-        0 3px 0 #001133,
-        0 6px 12px rgba(0,0,0,0.4);
+      box-shadow: 0 3px 0 #001133, 0 6px 12px rgba(0,0,0,0.4);
     }
 
-    /* Animations */
     @keyframes fadeSlideIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
@@ -202,8 +259,23 @@
   </style>
 </head>
 <body>
+  <header>
+    <h1>SOC Internal Hub</h1>
+    <button class="hamburger" onclick="openNav()">☰</button>
+  </header>
 
-  <h1>WEEKLY DIGEST ENTRY</h1>
+  <div id="sideNav" class="sidenav">
+    <span class="closebtn" onclick="closeNav()">&times;</span>
+    <a href="index.html">Home</a>
+    <a href="weekly_digest.html">Weekly Digest</a>
+    <a href="Phishing_analyzer.html">Phishing Analyzer</a>
+    <a href="ioc_lookup.html">IOC Lookup</a>
+    <a href="report_center.html">Report Center</a>
+  </div>
+
+  <div id="overlay" class="overlay" onclick="closeNav()"></div>
+
+  <div class="page-title">WEEKLY DIGEST ENTRY</div>
 
   <!-- SEPTEMBER -->
   <div class="month">SEPTEMBER</div>
@@ -226,7 +298,7 @@
     </div>
   </div>
 
-  <!-- OCTOBER -->
+ <!-- OCTOBER -->
   <div class="month">OCTOBER</div>
   <div class="week-container">
     <div class="week"><div class="week-box week-unfilled">Week 1</div><div class="week-date">MSP SOC - Weekly Threat Alerts - 3/10/2025</div></div>
@@ -254,9 +326,23 @@
     <div class="week"><div class="week-box week-unfilled">Week 4</div><div class="week-date">MSP SOC - Weekly Threat Alerts - 26/12/2025</div></div>
   </div>
 
+
   <div class="button-container">
     <button class="back-btn" onclick="window.location.href='index.html'">⬅ Back to Homepage</button>
   </div>
 
+  <script>
+    function openNav() {
+      document.getElementById("sideNav").style.width = "280px";
+      document.getElementById("overlay").classList.add("active");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeNav() {
+      document.getElementById("sideNav").style.width = "0";
+      document.getElementById("overlay").classList.remove("active");
+      document.body.style.overflow = "auto";
+    }
+  </script>
 </body>
 </html>
