@@ -9,14 +9,10 @@
     @font-face {
       font-family: 'Deltha';
       src: url('Deltha.otf') format('opentype');
-      font-weight: normal;
-      font-style: normal;
     }
     @font-face {
       font-family: 'ArchieroBold';
       src: url('Archiero Bold.ttf') format('truetype');
-      font-weight: normal;
-      font-style: normal;
     }
 
     body {
@@ -28,51 +24,141 @@
       background-size: cover;
       color: #fff;
       text-align: center;
+      transition: filter 0.3s ease;
     }
 
+    /* Header Full Width + Transparent + Smooth Opacity */
     header {
-  padding: 15px;
-  background: rgba(0,0,0,0.75);
-  border-bottom: 1.5px solid #ff4d4d; /* highlight line bawah */
-}
-
-header h1 {
-  margin: 10px 0;
-  font-size: 2.4em;
-  font-family: 'Deltha', sans-serif;
-  color: #fdf3f3;
-  text-shadow: 0 0 12px rgba(255, 0, 0, 0.7);
-}
-
-
-    nav {
-      margin-top: 15px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 120px;
+      background: rgba(255, 255, 255, 0.3); /* initial white transparent */
+      backdrop-filter: blur(5px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      box-sizing: border-box;
+      transition: background 1.5s ease;
+      z-index: 1000;
     }
 
-    nav button {
-      padding: 10px 20px;
-      margin: 0 8px;
-      border: none;
-      border-radius: 10px;
+    .header-left, .header-right {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+    }
+
+    .header-title {
+      flex: 1 1 auto;
+      text-align: center;
+      font-family: 'Deltha', sans-serif;
+      font-size: 2.4em;
+      margin: 0;
+      color: #333; /* dark text for white background */
+      text-shadow: 0 0 6px rgba(0,0,0,0.2);
+    }
+
+    .logo {
+      height: 50px;
+      width: auto;
+      margin-right: 15px;
+    }
+
+    /* Hamburger Button */
+    .hamburger {
+      font-size: 1.6em;
+      padding: 12px 20px;
       cursor: pointer;
-      background-color: #000;
+      border: none;
+      border-radius: 14px;
+      background: linear-gradient(145deg, #1a1a1a, #000000);
       color: #fff;
-      font-size: 16px;
       font-family: 'ArchieroBold', sans-serif;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.3);
-      transition: 0.3s;
+      box-shadow: 0 6px 0 #ff1a1a, 0 6px 12px rgba(0,0,0,0.6);
+      transition: all 0.3s ease;
+    }
+    .hamburger:hover {
+      background: linear-gradient(145deg, #ff1a1a, #ff4d4d);
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 9px 0 #a60000, 0 12px 20px rgba(255,0,0,0.5);
+    }
+    .hamburger:active {
+      transform: translateY(3px) scale(0.95);
+      box-shadow: 0 3px 0 #a60000, 0 6px 10px rgba(0,0,0,0.4);
     }
 
-    nav button:hover {
-      background: linear-gradient(90deg, #ff0000, #ff4d4d);
+    /* Side Navigation */
+    .sidenav {
+      height: 100%;
+      width: 280px;
+      position: fixed;
+      top: 0;
+      right: -280px;
+      background: rgba(0, 0, 0, 0.95);
+      overflow-x: hidden;
+      transition: right 0.5s ease;
+      padding-top: 80px;
+      z-index: 1000;
+    }
+    .sidenav.active { right: 0; }
+    .sidenav a {
+      display: block;
+      margin: 12px auto;
+      text-decoration: none;
+      font-weight: bold;
       color: #fff;
-      box-shadow: 0 6px 22px rgba(255,0,0,0.6);
-      transform: scale(1.08);
+      padding: 14px 24px;
+      border-radius: 14px;
+      font-family: 'ArchieroBold', sans-serif;
+      background: linear-gradient(145deg, #1a1a1a, #000000);
+      box-shadow: 0 6px 0 #ff1a1a, 0 6px 12px rgba(0,0,0,0.6);
+      transition: all 0.3s ease;
+      width: 70%;
+      text-align: center;
+    }
+    .sidenav a:hover {
+      background: linear-gradient(145deg, #ff1a1a, #ff4d4d);
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 9px 0 #a60000, 0 12px 20px rgba(255,0,0,0.5);
+    }
+    .sidenav a:active {
+      transform: translateY(3px) scale(0.95);
+      box-shadow: 0 3px 0 #a60000, 0 6px 10px rgba(0,0,0,0.4);
+    }
+    .sidenav .closebtn {
+      position: absolute;
+      top: 15px;
+      right: 25px;
+      font-size: 40px;
+      text-decoration: none;
+      color: #ff4d4d;
+      cursor: pointer;
     }
 
-    /* Main container with animation */
+    /* Overlay */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: rgba(0,0,0,0.5);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease;
+      z-index: 900;
+      backdrop-filter: blur(4px);
+    }
+    .overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
     main {
-      margin-top: 40px;
+      margin-top: 140px; /* space for fixed header */
       padding: 20px;
       background: rgba(0, 0, 0, 0.65);
       border-radius: 16px;
@@ -84,8 +170,6 @@ header h1 {
       transform: translateY(30px);
       animation: fadeInUp 1s forwards;
     }
-
-    /* Phishing URL Analyzer heading */
     main h2 {
       font-family: 'Deltha', sans-serif;
       color: #fff;
@@ -101,28 +185,32 @@ header h1 {
       font-size: 1em;
     }
 
-    button {
-      padding: 12px 24px;
-      margin: 15px 10px;
+    .form-button {
+      display: inline-block;
+      margin: 15px auto;
+      padding: 16px 28px;
+      font-size: 1.1em;
+      font-weight: 700;
       border: none;
       border-radius: 14px;
       cursor: pointer;
-      background-color: #000;
+      background: linear-gradient(145deg, #1a1a1a, #000000);
       color: #fff;
-      font-size: 18px;
       font-family: 'ArchieroBold', sans-serif;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.3);
-      transition: 0.3s;
+      text-decoration: none;
+      box-shadow: 0 8px 0 #ff1a1a, 0 6px 15px rgba(0,0,0,0.6);
+      transition: all 0.3s ease;
+    }
+    .form-button:hover {
+      background: linear-gradient(145deg, #ff1a1a, #ff4d4d);
+      transform: translateY(-6px) scale(1.05);
+      box-shadow: 0 12px 0 #a60000, 0 12px 22px rgba(255,0,0,0.5);
+    }
+    .form-button:active {
+      transform: translateY(3px) scale(0.95);
+      box-shadow: 0 4px 0 #a60000, 0 6px 12px rgba(0,0,0,0.4);
     }
 
-    button:hover {
-      background: linear-gradient(90deg, #ff0000, #ff4d4d);
-      color: #fff;
-      box-shadow: 0 6px 22px rgba(255,0,0,0.6);
-      transform: scale(1.1);
-    }
-
-    /* Chart animation */
     .chartBox {
       width: 360px;
       margin: 30px auto;
@@ -131,8 +219,6 @@ header h1 {
       animation: fadeInUp 1s forwards;
       animation-delay: 0.3s;
     }
-
-    /* Tips animation */
     .tips {
       margin-top: 40px;
       text-align: left;
@@ -144,8 +230,6 @@ header h1 {
       animation: fadeInUp 1s forwards;
       animation-delay: 0.6s;
     }
-
-    /* Action buttons animation */
     .action-buttons {
       margin-top: 20px;
       text-align: center;
@@ -155,126 +239,135 @@ header h1 {
       animation-delay: 0.9s;
     }
 
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .chartBox, .tips, .action-buttons {
-      transition: all 0.5s ease;
-    }
-
-    footer {
-      margin-top: 30px;
-      font-size: 0.9em;
-      color: #aaa;
-    }
+    @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+    footer { margin-top: 30px; font-size: 0.9em; color: #aaa; }
   </style>
 </head>
 <body>
-  <header>
-    <h1>SOC Internal Hub</h1>
-    <nav>
-  <button onclick="window.location.href='/SOC-Internal-Hubb/homepage.html'">Home</button>
-  <button onclick="window.location.href='/SOC-Internal-Hubb/url-analyzer.html'">URL Analyzer</button>
-  <button onclick="window.location.href='/SOC-Internal-Hubb/ioc-lookup.html'">IOC Lookup</button>
-  <button onclick="window.location.href='/SOC-Internal-Hubb/weekly-digest.html'">Weekly Digest</button>
-</nav>
-  </header>
 
-  <main>
-    <h2>Phishing URL Analyzer</h2>
-    <input type="text" id="urlInput" placeholder="https://example.com">
-    <button onclick="analyzeURL()">Analyze</button>
+<header>
+  <div class="header-left">
+    <img src="LUNAS_logo.png" alt="SOC Logo" class="logo">
+  </div>
 
-    <div class="chartBox">
-      <canvas id="verdictChart"></canvas>
-    </div>
+  <h1 class="header-title">SOC Internal Hub</h1>
 
-    <p id="verdictText"></p>
+  <div class="header-right">
+    <button class="hamburger" onclick="openNav()">☰</button>
+  </div>
+</header>
 
-    <div class="tips">
-      <h3>🔎 Tips for Identifying Phishing URLs:</h3>
-      <ul>
-        <li>Always make sure the URL contains <b>https://</b></li>
-        <li>Do not click if the URL contains the <b>@</b> symbol</li>
-        <li>Be cautious with unusual domains (e.g., <i>.xyz, .top, .tk</i>)</li>
-        <li>Avoid links that are too long or contain many dashes (-)</li>
-        <li>Watch out for fake domains like <i>paypal.com.secure-login.ru</i></li>
-      </ul>
-    </div>
+<!-- Side Navigation -->
+<div id="sideNav" class="sidenav">
+  <span class="closebtn" onclick="closeNav()">&times;</span>
+  <a href="index.html">Home</a>
+  <a href="weekly_digest.html">Weekly Digest</a>
+  <a href="Phishing_analyzer.html">Phishing Analyzer</a>
+  <a href="ioc_lookup.html">IOC Lookup</a>
+  <a href="report_center.html">Report Center</a>
+</div>
 
-    <div class="action-buttons">
-      <button onclick="window.print()">Save as PDF</button>
-    </div>
-  </main>
+<!-- Overlay -->
+<div id="overlay" class="overlay" onclick="closeNav()"></div>
 
-  <footer>
-    <p>&copy; 2025 SOC Internal Hub</p>
-  </footer>
+<main>
+  <h2>Phishing URL Analyzer</h2>
+  <input type="text" id="urlInput" placeholder="https://example.com">
+  <button class="form-button" onclick="analyzeURL()">Analyze</button>
 
-  <script>
-    let chart;
+  <div class="chartBox">
+    <canvas id="verdictChart"></canvas>
+  </div>
 
-    function analyzeURL() {
-      const url = document.getElementById("urlInput").value.trim();
-      if (!url) {
-        alert("Please enter a URL");
-        return;
-      }
+  <p id="verdictText"></p>
 
-      let malicious = 0, suspicious = 0, harmless = 0;
+  <div class="tips">
+    <h3>🔎 Tips for Identifying Phishing URLs:</h3>
+    <ul>
+      <li>Always make sure the URL contains <b>https://</b></li>
+      <li>Do not click if the URL contains the <b>@</b> symbol</li>
+      <li>Be cautious with unusual domains (e.g., <i>.xyz, .top, .tk</i>)</li>
+      <li>Avoid links that are too long or contain many dashes (-)</li>
+      <li>Watch out for fake domains like <i>paypal.com.secure-login.ru</i></li>
+    </ul>
+  </div>
 
-      try {
-        const lowerURL = url.toLowerCase();
-        const domainPart = lowerURL.split("/")[2] || "";
+  <div class="action-buttons">
+    <button class="form-button" onclick="window.print()">Save as PDF</button>
+  </div>
+</main>
 
-        if (!lowerURL.startsWith("https://")) suspicious++;
-        if (lowerURL.includes("@")) malicious++;
-        if (url.length > 60) suspicious++;
-        if ((domainPart.match(/-/g) || []).length > 3) suspicious++;
+<footer>
+  <p>&copy; 2025 SOC Internal Hub</p>
+</footer>
 
-        const badTLDs = [".xyz", ".top", ".tk", ".gq", ".cn", ".ru"];
-        if (badTLDs.some(tld => lowerURL.endsWith(tld))) suspicious++;
-        if (/(\d{1,3}\.){3}\d{1,3}/.test(domainPart)) malicious++;
+<script>
+let chart;
 
-        const badKeywords = ["login", "verify", "secure", "update", "banking"];
-        if (badKeywords.some(word => lowerURL.includes(word))) suspicious++;
-        if ((domainPart.match(/\./g) || []).length > 2) malicious++;
+function openNav() {
+  document.getElementById("sideNav").classList.add("active");
+  document.getElementById("overlay").classList.add("active");
+  document.body.style.overflow = "hidden";
+}
 
-        let verdict = "Benign ✅";
-        if (malicious > 0) verdict = "Malicious ❌";
-        else if (suspicious > 0) verdict = "Suspicious ⚠️";
-        else harmless++;
+function closeNav() {
+  document.getElementById("sideNav").classList.remove("active");
+  document.getElementById("overlay").classList.remove("active");
+  document.body.style.overflow = "auto";
+}
 
-        if (chart) chart.destroy();
-        const ctx = document.getElementById("verdictChart").getContext("2d");
-        chart = new Chart(ctx, {
-          type: 'pie',
-          data: {
-            labels: ['Harmless', 'Suspicious', 'Malicious'],
-            datasets: [{
-              data: [harmless, suspicious, malicious],
-              backgroundColor: ['#28a745','#ffc107','#dc3545']
-            }]
-          },
-          options: {
-            plugins: {
-              legend: { position: 'bottom' },
-              title: { display: true, text: `Verdict: ${verdict}` }
-            }
-          }
-        });
+function analyzeURL() {
+  const url = document.getElementById("urlInput").value.trim();
+  if (!url) { alert("Please enter a URL"); return; }
 
-        document.getElementById("verdictText").innerText = `Final Verdict: ${verdict}`;
-      } catch (err) {
-        console.error(err);
-        document.getElementById("verdictText").innerText = "Error analyzing URL 🚨";
-      }
-    }
-  </script>
+  let malicious = 0, suspicious = 0, harmless = 0;
+  try {
+    const lowerURL = url.toLowerCase();
+    const domainPart = lowerURL.split("/")[2] || "";
+    if (!lowerURL.startsWith("https://")) suspicious++;
+    if (lowerURL.includes("@")) malicious++;
+    if (url.length > 60) suspicious++;
+    if ((domainPart.match(/-/g) || []).length > 3) suspicious++;
+    const badTLDs = [".xyz", ".top", ".tk", ".gq", ".cn", ".ru"];
+    if (badTLDs.some(tld => lowerURL.endsWith(tld))) suspicious++;
+    if (/(\d{1,3}\.){3}\d{1,3}/.test(domainPart)) malicious++;
+    const badKeywords = ["login", "verify", "secure", "update", "banking"];
+    if (badKeywords.some(word => lowerURL.includes(word))) suspicious++;
+    if ((domainPart.match(/\./g) || []).length > 2) malicious++;
+
+    let verdict = "Benign ✅";
+    if (malicious > 0) verdict = "Malicious ❌";
+    else if (suspicious > 0) verdict = "Suspicious ⚠️";
+    else harmless++;
+
+    if (chart) chart.destroy();
+    const ctx = document.getElementById("verdictChart").getContext("2d");
+    chart = new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: ['Harmless', 'Suspicious', 'Malicious'],
+        datasets: [{ data: [harmless, suspicious, malicious], backgroundColor: ['#28a745','#ffc107','#dc3545'] }]
+      },
+      options: { plugins: { legend: { position: 'bottom' }, title: { display: true, text: `Verdict: ${verdict}` } } }
+    });
+
+    document.getElementById("verdictText").innerText = `Final Verdict: ${verdict}`;
+  } catch (err) {
+    console.error(err);
+    document.getElementById("verdictText").innerText = "Error analyzing URL 🚨";
+  }
+}
+
+// Smooth header opacity on scroll
+window.addEventListener('scroll', function() {
+  const header = document.querySelector('header');
+  if (window.scrollY > 50) {
+    header.style.background = 'rgba(255, 255, 255, 0.7)';
+  } else {
+    header.style.background = 'rgba(255, 255, 255, 0.3)';
+  }
+});
+</script>
+
 </body>
 </html>
-
